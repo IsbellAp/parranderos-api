@@ -14,18 +14,18 @@ app.add_middleware(
 )
 
 #os.environ para despliegue. Descomente cuando ya probó todo local.
-#client = MongoClient(os.environ["MONGO_URI"])
-# TODO: conectarse al cluster Admonsis  
-# client = MongoClient("mongodb://ISIS2304D22202610:PZedTLx4uEeo@157.253.236.88:8087/")
-
 client = MongoClient(os.environ["MONGO_URI"])
+# TODO: conectarse al cluster Admonsis  
+#client = MongoClient("mongodb://ISIS2304D27202610:PGfMXdt1XNyg@157.253.236.88:8087")
+
+
 # TODO: conectarse a la base de datos Admonsis  
-# db = client["ISIS*******"]
-db = client["ISIS2304D22202610"]
+db = client["ISIS2304D27202610"]
+#db = client["ISIS2304"]
 
 
 @app.get("/")
-def inicio():
+def root():
     return {"estado": "API funcionando correctamente"}
 
 @app.get('/bares/{bar_id}/comentarios')
