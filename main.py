@@ -18,10 +18,10 @@ app.add_middleware(
 # TODO: conectarse al cluster Admonsis  
 # client = MongoClient("mongodb://ISIS2304D22202610:PZedTLx4uEeo@157.253.236.88:8087/")
 
-client = MongoClient("")
+client = MongoClient(os.environ["MONGO_URI"])
 # TODO: conectarse a la base de datos Admonsis  
 # db = client["ISIS*******"]
-db = client[""]
+db = client["ISIS2304D22202610"]
 
 
 @app.get("/")
@@ -30,7 +30,14 @@ def inicio():
 
 @app.get('/bares/{bar_id}/comentarios')
 def get_comentarios(bar_id: int):
-    comentarios = None  # TODO: completar
+
+    comentarios = list(
+        db["comentarios"].find({"bar_id": bar_id})
+    )
+
+    for c in comentarios:
+        c["_id"] = str(c["_id"])
+
     return comentarios
 
 @app.post('/bares/{bar_id}/comentarios')
